@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMe</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body onload="load()">
+
+    <nav class="navBar" id="navBar"></nav>
+    
+    <img class="backgroundImg" src="../static/images/background.png" alt="backgroundImg" />
+
+    <header>
+        <h2 id="pagesHeader">Find A Hike</h2>
+    </header>
+
+    <!-- <form class="FindAHikeForm">
+        <div>
+            <label class="FindAHikeLabels" for="From">From</label>
+            <input class="FindAHikeInputs" type="date" id="From">
+        </div>
+
+        <div>
+            <label class="FindAHikeLabels" for="To">To</label>
+            <input class="FindAHikeInputs" type="date" id="To">
+        </div>
+
+        <div>
+            <label class="FindAHikeLabels" for="chooseArea">Area</label>
+            <select class="FindAHikeInputs" id="chooseArea" name="Area">
+                <option value="none" selected disabled hidden>
+                <option value="All">All</option>
+                <option value="South">South</option>
+                <option value="North">North</option>
+                <option value="Center">Center</option>
+            </select>
+        </div>
+
+         <div>
+            <label class="FindAHikeLabels" for="Max Participants">Max Participants</label>
+            <select class="FindAHikeInputs" id="Max Participants" name="Max Participants">
+                <option value="none" selected disabled hidden>
+                <option value="All">All</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="60">60</option>
+                <option value="80">80</option>
+            </select>
+        </div>
+
+        <div>
+            <input class="buttons" id="FilterBtn" type="submit" value="Filter"/>
+        </div>
+
+
+</form> -->
+
+
+<table class="hikes-table" id="find-a-hike-table">
+  <tr>
+    <th>Hike Date</th>
+    <th>Area</th>
+    <th>Number of Participants</th>
+    <th>Participants Age Group</th>
+    <th>Hike Details</th>
+    <th>Salary</th>
+    <th>Hike Organizer</th>
+    <th>Organizer Phone Number</th>
+  </tr>
+</table>
+
+ <script src="../static/java-script.js"></script>
+</body>
+</html>

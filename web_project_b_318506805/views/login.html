@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body onload="load()">
+
+    <nav class="navBar" id="navBar"></nav>
+
+    <img class="backgroundImg" src="../static/images/background.png" alt="backgroundImg" />
+
+    <header class="title">
+        <h1 class="title-word title-word-1">TravelMe</h1>
+    </header>
+
+    <form class="logInForm" >
+        <div>
+            <label class="userdeatailslable" for="username">User Name</label>
+            <input class="userdeatailsinput" type="text" id="username" name="User Name">
+        </div>
+
+        <div>
+            <label class="userdeatailslable" for="password">Password</label>
+            <input class="userdeatailsinput" type="text" id="password" name="Password">
+        </div>
+
+        <input type="button" class="buttons" id="LogInBtn" value="Log In" onclick=logIn()>
+
+    </form>
+
+ <script src="../static/java-script.js"></script>
+
+ <script>
+
+    // auto logout when comes to this page
+    logOut();
+
+    function logIn() {
+        var usernameElem = document.getElementById('username');
+        var passwordElem = document.getElementById('password');
+
+        if (validateRequiredFields()) {
+            const users = JSON.parse(localStorage.getItem('USERS'));
+            const user = users.find(user => user.username === usernameElem.value && user.password === passwordElem.value);
+
+            if (user) {
+                localStorage.setItem('LOGGED_IN_USER', JSON.stringify(user));
+                if (user.userType === "counselor") {
+                    window.location = 'find-a-hike.html';
+                }
+                else {
+                    window.location = 'add-hike.html';
+                }
+            }
+            else {
+                alert('No user was found for the provided credentials');
+            }
+        }
+    }
+
+    function validateRequiredFields() {
+        var usernameElem = document.getElementById('username');
+        var passwordElem = document.getElementById('password');
+
+        if (!usernameElem.value) {
+            alert('Please insert name');
+            usernameElem.style.outline = '2px solid red';
+            return false;
+        }
+        else {
+            usernameElem.style.outline = 'unset';
+        }
+
+        if (!passwordElem.value) {
+            alert('Please insert Password');
+            passwordElem.style.outline = '2px solid red';
+            return false;
+        }
+        else {
+            passwordElem.style.outline = 'unset';
+        }
+
+        return true;
+    }
+
+    function logOut() {
+        localStorage.removeItem('LOGGED_IN_USER');
+    }
+
+ </script>
+
+</body>
+
+</html>
