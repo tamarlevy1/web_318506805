@@ -107,11 +107,11 @@ function load() {
   createNavbar();
 }
 
-/*// Update users && hikes in localStorage from dummy data if no hikes and users added
+// Update users and hikes in localStorage from dummy data if no hikes and users added
 if (!localStorage.getItem("USERS") && !localStorage.getItem("HIKES")) {
   localStorage.setItem("USERS", JSON.stringify(users));
   localStorage.setItem("HIKES", JSON.stringify(hikes));
-}*/
+}
 
 // Load hikes from store and show in table
 if (localStorage.getItem('HIKES')) {
