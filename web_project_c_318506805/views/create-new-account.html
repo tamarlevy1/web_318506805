@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body onload="load()">
+    <nav class="navBar" id="navBar"></nav>
+
+    <header>
+        <h2 id="pagesHeader">Create New Account</h2>
+    </header>
+
+    <img class="backgroundImg" src="../static/images/background.png" alt="backgroundImg" />
+
+    <form class="CreateAccountForm">
+
+        <div>
+            <label class="CreateAccountLabels" for="username">Username</label>
+            <input class="CreateAccountInputs" type="text" id="username" name="userName">
+        </div>
+
+        <div>
+            <label class="CreateAccountLabels" for="password">Password</label>
+            <input class="CreateAccountInputs" type="text" id="password" name="password">
+        </div>
+
+        <div>
+            <label class="CreateAccountLabels" for="fullname">Full Name</label>
+            <input class="CreateAccountInputs" type="text" id="fullname" name="fullName">
+        </div>
+
+        <div>
+            <label class="CreateAccountLabels" for="phone-number">Phone Number</label>
+            <input class="CreateAccountInputs" type="number" id="phone-number" name="phoneNumber">
+        </div>
+
+        <div>
+            <label class="CreateAccountLabels" for="date-of-birth">Date Of Birth</label>
+            <input class="CreateAccountInputs" type="date" id="date-of-birth">
+        </div>
+
+        <div>
+            <label class="CreateAccountLabels" for="user-type">User Type</label>
+            <select class="CreateAccountInputs" id="user-type" name="userType">
+                <option value="none" selected disabled hidden>
+                <option value="counselor">Counselor</option>
+                <option value="travel-organizer">Travel organizer</option>
+            </select>
+        </div>
+
+        <div class="grid-2">
+            <label class="CreateAccountLabels" for="experience">Experience</label>
+            <textarea class="CreateAccountInputs" type="text" id="experience" name='experience' rows="10"
+                cols="50"></textarea>
+            <input type="button" class="buttons" id="DoneBtn" value="Done" onclick="createNewUser(event)">
+        </div>
+    </form>
+
+    <script src="../static/java-script.js"></script>
+
+    <script>
+        //new user function from form details
+        async function createNewUser(e) {
+            e.preventDefault(); //prevent form from submitt automatically 
+            //gets values from form
+            var usernameElem = document.getElementById('username');
+            var passwordElem = document.getElementById('password');
+            var fullnameElem = document.getElementById('fullname');
+            var phoneNumElem = document.getElementById('phone-number');
+            var dateOfBirthElem = document.getElementById('date-of-birth');
+            var userTypeElem = document.getElementById('user-type');
+            var experienceElem = document.getElementById('experience');
+            
+            // if all required fields were filled by the client
+            if (validateRequiredFields()) {
+                
+                //creates the new user in route
+                const response = await fetch(`http://localhost:3000/api/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: usernameElem.value,
+                        password: passwordElem.value,
+                        fullname: fullnameElem.value,
+                        phone: phoneNumElem.value,
+                        birthdate: dateOfBirthElem.value,
+                        user_type: userTypeElem.value,
+                        experience: experienceElem.value,
+                    })
+                });
+                const json = await response.json();
+                alert(json.message);
+                console.log(json);
+
+                if (response.status === 201) {
+                    window.location = 'index.html'; //if sucsses --> move to logIn page
+                }
+            }
+        }
+
+        //function to validate fields
+        function validateRequiredFields() {
+            var usernameElem = document.getElementById('username');
+            var passwordElem = document.getElementById('password');
+            var fullnameElem = document.getElementById('fullname');
+            var phoneNumElem = document.getElementById('phone-number');
+            var dateOfBirthElem = document.getElementById('date-of-birth');
+            var userTypeElem = document.getElementById('user-type');
+            var experienceElem = document.getElementById('experience');
+
+            if (!usernameElem.value) {
+                alert('Please insert name');
+                usernameElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                usernameElem.style.outline = 'unset';
+            }
+
+            if (!passwordElem.value) {
+                alert('Please insert password');
+                passwordElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                passwordElem.style.outline = 'unset';
+            }
+
+            if (!fullnameElem.value) {
+                alert('Please insert full name');
+                fullnameElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                fullnameElem.style.outline = 'unset';
+            }
+
+            if (!phoneNumElem.value) {
+                alert('Please insert phone number');
+                phoneNumElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                phoneNumElem.style.outline = 'unset';
+            }
+
+            if (!dateOfBirthElem.value) {
+                alert('Please insert Date Of Birth');
+                dateOfBirthElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                dateOfBirthElem.style.outline = 'unset';
+            }
+
+            if (!userTypeElem.value || userTypeElem.value === 'none') {
+                alert('Please choose user type');
+                userTypeElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                userTypeElem.style.outline = 'unset';
+            }
+
+            if (!experienceElem.value) {
+                alert('Please insert experience');
+                experienceElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                experienceElem.style.outline = 'unset';
+            }
+
+            return true;
+        }
+
+    </script>
+
+</body>
+
+</html>

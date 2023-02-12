@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body onload="load()">
+    <nav class="navBar" id="navBar"></nav>
+
+    <header>
+        <h2 id="pagesHeader">Add Hike</h2>
+    </header>
+
+    <img class="backgroundImg" src="../static/images/background.png" alt="backgroundImg" />
+
+    <form class="AddHikeForm">
+
+        <div>
+            <label class="AddHikeLabels" for="hike-date">Hike Date</label>
+            <input class="AddHikeInputs" type="date" id="hike-date">
+        </div>
+
+        <div>
+            <label class="AddHikeLabels" for="area">Area</label>
+            <select class="AddHikeInputs" id="area" name="Area">
+                <option value="none" selected disabled hidden>
+                <option value="South">South</option>
+                <option value="North">North</option>
+                <option value="Center">Center</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="AddHikeLabels" for="num-participants">Number Of Participants</label>
+            <select class="AddHikeInputs" id="num-participants" name="Number Of Participants">
+                <option value="none" selected disabled hidden>
+                <option value="1-20">1-20</option>
+                <option value="20-40">20-40</option>
+                <option value="40-60">40-60</option>
+                <option value="20-80">60-80</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="AddHikeLabels" for="participants-age-group">Participants Age Group</label>
+            <select class="AddHikeInputs" id="participants-age-group" name="Participants Age Group">
+                <option value="none" selected disabled hidden>
+                <option value="Under 18">Under 18</option>
+                <option value="18-30">18-30</option>
+                <option value="30-50">30-50</option>
+                <option value="50-70">50-70</option>
+                <option value="70+">70+</option>
+                <option value="Mix">Mix</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="AddHikeLabels" for="salary">Daily Salary</label>
+            <input class="AddHikeInputs" type="number" id="salary">
+        </div>
+
+        <div class="grid-2">
+            <label class="AddHikeLabels" for="details">More Details</label>
+            <textarea class="AddHikeInputs" type="text" id="details" rows="10" cols="50"></textarea>
+            <input class="buttons" type="button" id="DoneBtn" value="Done" onclick="createNewHike(event)" />
+        </div>
+    </form>
+
+    <script src="../static/java-script.js"></script>
+
+    <script>
+
+        async function createNewHike(e) {
+            e.preventDefault();
+
+            var hikeDateElem = document.getElementById('hike-date');
+            var areaElem = document.getElementById('area');
+            var participentsNumberElem = document.getElementById('num-participants');
+            var participentsAgeGroupElem = document.getElementById('participants-age-group');
+            var salaryElem = document.getElementById('salary');
+            var detailsElem = document.getElementById('details');
+
+            if (validateRequiredFields()) {
+                // all required fields were filled by the client
+                const loggedInUser = JSON.parse(sessionStorage.getItem("LOGGED_IN_USER"));
+                const response = await fetch(`http://localhost:3000/api/hikes`, {            
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        //id: generateHikeId(),
+                        hike_date: hikeDateElem.value,
+                        area: areaElem.value,
+                        num_of_participants: participentsNumberElem.value,
+                        participants_age_group: participentsAgeGroupElem.value,
+                        salary: salaryElem.value,
+                        hike_details: detailsElem.value,
+                        organizer_id: loggedInUser.id,
+                        status: 'open',
+                    })
+                });
+                const json = await response.json();
+                alert(json.message);
+                console.log(json);
+
+                if (response.status === 201) {
+                    window.location = 'my-hikes-organizer.html';
+                }
+            }
+        }
+
+       // function generateHikeId() {
+       //     return Math.random().toString(36).slice(2);
+       //}
+
+        function validateRequiredFields() {
+            var hikeDateElem = document.getElementById('hike-date');
+            var areaElem = document.getElementById('area');
+            var participentsNumberElem = document.getElementById('num-participants');
+            var participentsAgeGroupElem = document.getElementById('participants-age-group');
+            var salaryElem = document.getElementById('salary');
+            var detailsElem = document.getElementById('details');
+
+            if (!hikeDateElem.value) {
+                alert('Please insert date');
+                hikeDateElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                hikeDateElem.style.outline = 'unset';
+            }
+
+            if (!areaElem.value || areaElem.value === 'none') {
+                alert('Please insert area');
+                areaElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                areaElem.style.outline = 'unset';
+            }
+
+            if (!participentsNumberElem.value || participentsNumberElem.value === 'none') {
+                alert('Please insert participents number');
+                participentsNumberElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                participentsNumberElem.style.outline = 'unset';
+            }
+
+            if (!participentsAgeGroupElem.value || participentsAgeGroupElem.value === 'none') {
+                alert('Please insert participents age group');
+                participentsAgeGroupElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                participentsAgeGroupElem.style.outline = 'unset';
+            }
+
+            if (!salaryElem.value) {
+                alert('Please insert salary');
+                salaryElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                salaryElem.style.outline = 'unset';
+            }
+
+            if (!detailsElem.value) {
+                alert('Please insert details');
+                detailsElem.style.outline = '2px solid red';
+                return false;
+            }
+            else {
+                detailsElem.style.outline = 'unset';
+            }
+
+            return true;
+        }
+
+    </script>
+
+</body>
+
+</html>

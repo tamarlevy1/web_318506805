@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body onload="load()">
+
+    <nav class="navBar" id="navBar"></nav>
+
+    <img class="backgroundImg" src="../static/images/background.png" alt="backgroundImg" />
+
+    <header class="title">
+        <h1 class="title-word title-word-1">TravelMe</h1>
+    </header>
+
+    <form class="logInForm" >
+        <div>
+            <label class="userdeatailslable" for="username">User Name</label>
+            <input class="userdeatailsinput" type="text" id="username" name="User Name">
+        </div>
+
+        <div>
+            <label class="userdeatailslable" for="password">Password</label>
+            <input class="userdeatailsinput" type="password" id="password" name="Password">
+        </div>
+
+        <input type="button" class="buttons" id="LogInBtn" value="Log In" onclick=logIn()>
+
+    </form>
+
+ <script src="../static/java-script.js"></script>
+
+ <script>
+
+    // auto logout when comes to this page
+    logOut();
+
+    async function logIn() {
+        var usernameElem = document.getElementById('username');
+        var passwordElem = document.getElementById('password');
+
+        if (validateRequiredFields()) {
+            // all required fields were filled by the client
+            const response = await fetch(`http://localhost:3000/api/login`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({  //receive values 
+                    username: usernameElem.value,
+                    password: passwordElem.value,
+                })
+            });
+            const res = await response.json();
+            console.log(res);
+            
+            if (response.status === 200) {
+                //get the looged in user as an object
+                sessionStorage.setItem("LOGGED_IN_USER", JSON.stringify(res.user));
+                
+                //check what kind of user and base on that decide which page will open after logIn
+                if (res.user.user_type === "counselor") {
+                    window.location = 'find-a-hike.html';
+                }
+                else {
+                    window.location = 'add-hike.html';
+                }
+            }
+            else {
+                alert(res.error);
+            }
+        }
+    }
+
+    //validate fields function
+    function validateRequiredFields() {
+        var usernameElem = document.getElementById('username');
+        var passwordElem = document.getElementById('password');
+
+        if (!usernameElem.value) {
+            alert('Please insert name');
+            usernameElem.style.outline = '2px solid red';
+            return false;
+        }
+        else {
+            usernameElem.style.outline = 'unset';
+        }
+
+        if (!passwordElem.value) {
+            alert('Please insert Password');
+            passwordElem.style.outline = '2px solid red';
+            return false;
+        }
+        else {
+            passwordElem.style.outline = 'unset';
+        }
+
+        return true;
+    }
+
+    function logOut() {
+        sessionStorage.clear();
+    }
+
+ </script>
+
+</body>
+
+</html>

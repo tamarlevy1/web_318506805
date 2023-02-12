@@ -1,0 +1,56 @@
+Installed Modules: 
+express, body-parser, path, mysql2, csv-parser, fs
+
+
+
+routes: 
+router.route("/api/login").post(crudFunctions.login);
+router.route("/api/register").post(crudFunctions.createNewUser);
+
+router
+    .route("/api/users")
+    .get(crudFunctions.searchUsers)
+
+router
+    .route("/api/hikes")
+    .get(crudFunctions.searchHikes)
+    .post(crudFunctions.createNewHike);
+
+router
+    .route("/api/hikes/:id")
+    .get(crudFunctions.getHike)
+    .delete(crudFunctions.deleteHike)
+    .put(crudFunctions.updateHike);
+
+
+
+Create tables syntax: 
+users table: 
+CREATE TABLE IF NOT EXISTS web.users (
+            id int NOT NULL AUTO_INCREMENT,
+            username varchar(25) NOT NULL,
+            password varchar(25) NOT NULL,
+            fullname varchar(25) NOT NULL,
+            phone varchar(25) NOT NULL,
+            birthdate date NOT NULL,
+            user_type varchar(25) NOT NULL,
+            experience varchar(1000) NOT NULL,
+            PRIMARY KEY (id)
+        )
+
+hikes table: 
+CREATE TABLE IF NOT EXISTS web.hikes (
+            id int NOT NULL AUTO_INCREMENT,
+            hike_date date NOT NULL,
+            area varchar(25) NOT NULL,
+            num_of_participants varchar(25) NOT NULL,
+            participants_age_group varchar(25) NOT NULL,
+            salary int NOT NULL,
+            hike_details varchar(1000) NOT NULL,
+            counselor_id int,
+            organizer_id int NOT NULL,
+            status varchar(10) NOT NULL,
+            PRIMARY KEY (id),
+            CONSTRAINT \`hikes_ibfk_1\` FOREIGN KEY (\`counselor_id\`) REFERENCES \`web\`.\`users\` (\`id\`),
+            CONSTRAINT \`hikes_ibfk_2\` FOREIGN KEY (\`organizer_id\`) REFERENCES \`web\`.\`users\` (\`id\`)
+        )

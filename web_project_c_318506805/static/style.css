@@ -1,0 +1,373 @@
+/*General CSS*/
+
+* {
+  font-family: 'Indie Flower', cursive;
+  color: black;
+}
+
+.backgroundImg {
+  position: absolute;
+  top: 200px;
+  right: 200px;
+  opacity: 20%;
+  z-index: -1;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  justify-content: left;
+  align-items: flex-start;
+  position: relative;
+  margin-left: 50px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+form div {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+
+body {
+  margin: 0;
+  position: relative;
+  background-color: #FFE2BB;
+}
+
+h2 {
+  position: relative;
+  text-align: left;
+
+  font-weight: bolder;
+  font-size: 60px;
+  margin-left: 30px;
+  margin-top: 15px;
+}
+
+.buttons {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bolder;
+  background: lightgoldenrodyellow;
+  border-width: thin;
+  border-radius: 3px;
+}
+
+.buttons:hover {
+  background-color: #DF8453;
+}
+
+.navBar {
+  display: flex;
+  padding: 10px;
+  font-weight: bolder;
+  font-size: large;
+  background-color: beige;
+  border: black;
+  gap: 15px;
+}
+
+.navBar a {
+  text-decoration: none;
+}
+
+.navBar a:hover {
+  background: orange;
+}
+
+.hikes-table {
+  background: lightgoldenrodyellow;
+  font-weight: bolder;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+a.active {
+  text-decoration: underline;
+}
+
+table {
+  margin-right: 15px;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  border-radius: 5px;
+  border-collapse: collapse;
+  padding: 5px 10px;
+}
+
+th {
+  background: #ffffa5;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+
+
+/*Responsive*/
+
+@media screen and (max-width: 550px) {
+  form {
+    margin: 0;
+    padding-left: 30px;
+  }
+
+  form div {
+    align-items: flex-start;
+    display: grid;
+    gap: 0;
+  }
+
+  form div.grid-2 {
+    display: grid;
+    grid-template-columns: auto;
+  }
+
+  #DoneBtn {
+    margin-top: 30px;
+  }
+
+  .backgroundImg {
+    width: 60%;
+    padding-top: 50px;
+  }
+
+  .logInForm {
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .CreateAccountForm {
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .AddHikeForm {
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+
+/*Log In CSS*/
+
+h1 {
+  position: relative;
+  text-align: left;
+
+  font-weight: bolder;
+  font-size: 110px;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+.title-word {
+  animation: color-animation 4s linear infinite alternate;
+}
+
+.title-word-1 {
+  --color-1: #DF8453;
+  --color-2: #3D8DAE;
+}
+
+@keyframes color-animation {
+  0% {
+    color: var(--color-1)
+  }
+
+  32% {
+    color: var(--color-1)
+  }
+
+  33% {
+    color: var(--color-2)
+  }
+
+  65% {
+    color: var(--color-2)
+  }
+
+  100% {
+    color: var(--color-1)
+  }
+}
+
+.userdeatailslable {
+
+  font-weight: bolder;
+  font-size: 30px;
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+}
+
+.userdeatailsinput {
+  background-color: lightgoldenrodyellow;
+  border-width: thin;
+  border-radius: 3px;
+}
+
+.logInForm {
+  display: grid;
+  margin-left: 175px;
+}
+
+.logInForm div {
+  gap: 0;
+}
+
+#LogInBtn {
+  margin-top: 30px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+/*Create New Account CSS*/
+
+.CreateAccountLabels {
+
+  font-weight: bolder;
+  font-size: 20px;
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.CreateAccountInputs {
+  background: lightgoldenrodyellow;
+  border-radius: 5px;
+}
+
+
+#DoneBtn {
+  grid-column: 1/-1;
+}
+
+form div.grid-2 {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+/*Add Hike CSS*/
+
+#More\ Details {
+  width: 300px;
+  height: 200px;
+}
+
+.AddHikeInputs {
+  background: lightgoldenrodyellow;
+  border-radius: 5px;
+}
+
+.AddHikeLabels {
+
+  font-weight: bolder;
+  font-size: 20px;
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* Find A Hike CSS*/
+
+.FindAHikeLabels {
+
+  font-weight: bolder;
+  font-size: 20px;
+  width: 150px;
+  padding-left: 10px;
+  display: inline-block;
+  text-align: left;
+  margin-top: -10px;
+
+}
+
+.FindAHikeInputs {
+  background: lightgoldenrodyellow;
+  border-radius: 5px;
+  float: left;
+  padding: 4px;
+  text-align: center;
+  margin-top: -10px;
+
+}
+
+/*#FilterBtn{
+    margin-left: 500px;
+}*/
+
+
+
+/*My Hikes - Counselor CSS*/
+
+
+/*My Hikes - Organizer CSS*/
+
+
+.show-details {
+  cursor: pointer;
+  font-style: italic;
+}
+
+.show-details:hover {
+  text-decoration: underline;
+}
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #dce0a0;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
